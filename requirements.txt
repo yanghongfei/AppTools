@@ -1,3 +1,2 @@
 tornado
-SQLAlchemy
-mysql-connector
+requests
