@@ -1,12 +1,3 @@
-Table of Contents
-=================
-
-         * [AppTools](#apptools)
-            * [API接口](#api接口)
-               * [POST示例](#post示例)
-            * [FAQ](#faq)
-
-
 ### AppTools
 
 > 提醒工具API（如：邮箱、阿里大鱼、钉钉、微信），可通过POST请求调用，示例请参考`test.py`脚本，目前只写了邮箱
