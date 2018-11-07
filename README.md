@@ -135,7 +135,7 @@ if __name__ == '__main__':
 - 效果图
 
 普通邮件带附件
-![att](images/att.jgp)
+![att](images/att.jpg)
 
 HTML格式邮件带附件
-![att](images/att_html.jgp)
+![att_html](images/att_html.jpg)
