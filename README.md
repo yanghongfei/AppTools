@@ -132,6 +132,21 @@ if __name__ == '__main__':
 
 
 ```
+- 返回结果
+```json
+{
+	'status': 0,
+	'data': {
+		'to_list': 'yanghongfei@shinezone.com,1923671815@qq.com',
+		'subject': '这里是标题',
+		'content': '这里是内容',
+		'subtype': 'plain',
+		'att': 'requirements.txt'
+	},
+	'msg': '发送成功'
+}
+```
+
 - 效果图
 
 普通邮件带附件
