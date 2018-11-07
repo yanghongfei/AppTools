@@ -85,3 +85,4 @@ def get_email_info():
     if resp:
         data = json.loads(resp.text)['data']
         return data
+

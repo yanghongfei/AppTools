@@ -32,7 +32,7 @@ def att_html():
         "subject": "这里是标题",
         "content": "这里是内容",
         "subtype": "plain",
-        "att": "requirements.txt"  # 脚本当前路径下查找，找不到则报错
+        "att": "README.md"  # 脚本当前路径下查找，找不到则报错
     }
 
     r = requests.post(api, data=json.dumps(payload))
@@ -101,12 +101,13 @@ def html_mail():
         "subject": "这里是标题",
         "content": content,  # HTML构建出来的内容
         "subtype": "html",
-        "att": "requirements.txt"  # 脚本当前路径下查找，找不到则报错
+        "att": "None"  # 脚本当前路径下查找，找不到则报错
     }
 
     r = requests.post(api, data=json.dumps(payload))
     data = json.loads(r.text)
     print(data)
+
 
 
 if __name__ == '__main__':

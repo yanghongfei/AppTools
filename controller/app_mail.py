@@ -35,25 +35,32 @@ class SendMailHandler(tornado.web.RequestHandler):
                 'msg': '收件人、邮件标题、邮件内容不能为空'
             }
             return self.write(resp)
+
+
         EMAIL_INFO = get_email_info()
-        '''获取AppSettings里面登陆信息，实例化SendMailAPI'''
-        mail_host = EMAIL_INFO['EMAIL_HOST']
-        mail_port = EMAIL_INFO['EMAIL_PORT']
-        mail_user = EMAIL_INFO['EMAIL_HOST_USER']
-        mail_passwd = EMAIL_INFO['EMAIL_HOST_PASSWORD']
-        mail_ssl = EMAIL_INFO['EMAIL_USE_SSL']
+        if EMAIL_INFO:
+            '''获取AppSettings里面登陆信息，实例化SendMailAPI'''
+            mail_host = EMAIL_INFO['EMAIL_HOST']
+            mail_port = EMAIL_INFO['EMAIL_PORT']
+            mail_user = EMAIL_INFO['EMAIL_HOST_USER']
+            mail_passwd = EMAIL_INFO['EMAIL_HOST_PASSWORD']
+            mail_ssl = EMAIL_INFO['EMAIL_USE_SSL']
 
-        try:
-            obj = SendMailAPI(mail_host=mail_host, mail_port=mail_port, mail_user=mail_user, mail_passwd=mail_passwd,
-                              mail_ssl=mail_ssl)
+            try:
+                obj = SendMailAPI(mail_host=mail_host, mail_port=mail_port, mail_user=mail_user, mail_passwd=mail_passwd,
+                                  mail_ssl=mail_ssl)
 
-            obj.send_mail(to_list, subject, content, subtype=subtype, att=att)
-            resp = {
-                'status': 0,
-                'data': data,
-                'msg': '发送成功'
-            }
-            return self.write(resp)
+                send_mail = obj.send_mail(to_list, subject, content, subtype=subtype, att=att)
+                resp = {
+                    'status': 0,
+                    'data': data,
+                    'msg': '发送成功'
+                }
+                return self.write(resp)
 
-        except Exception as e:
-            print(e)
+            except Exception as e:
+                print(e)
+
+        else:
+            print('获取AppSetting邮箱配置信息失败')
+
