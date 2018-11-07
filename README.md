@@ -1,32 +1,36 @@
 
-# 目录
-<!--ts-->
-   * [目录](#目录)
+Table of Contents
+=================
+
    * [AppTools](#apptools)
-      * [API接口](#api接口)
-         * [POST示例](#post示例)
-         * [效果图](#效果图)
+      * [使用须知](#使用须知)
+      * [Email](#email)
+         * [API接口](#api接口)
+            * [POST示例](#post示例)
+            * [返回结果](#返回结果)
+            * [效果图](#效果图)
       * [FAQ](#faq)
 
-<!-- Added by: root, at: 2018-11-07T15:04+0800 -->
-
-<!--te-->
 
 # AppTools
-
 > 提醒工具API（如：邮箱、阿里大鱼、钉钉、微信），可通过POST请求调用，示例请参考`test.py`脚本，目前只写了邮箱
-> EMAIL， 测试支持QQ邮箱、腾讯企业邮箱
 
-
+## 使用须知
 - 使用人员请先修改`settings.py`配置信息
 - 此环境配置信息统一调用接口`http://172.16.0.101:9000/app_settings`
 
 
-## API接口
+## Email
+
+- 目前测试支持QQ邮箱、腾讯企业邮箱、网易163邮箱、Gmail邮箱
+- 常用邮件设置见`FAQ`介绍
+
+
+### API接口
 - URL：http://172.16.0.101:9001/sendmail
 - 请求方式：POST
 
-### POST示例
+#### POST示例
 - 使用`requests.post`请求
 
 示例脚本
@@ -149,7 +153,7 @@ if __name__ == '__main__':
 
 
 ```
-- 返回结果
+#### 返回结果
 ```json
 {
 	'status': 0,
@@ -164,7 +168,7 @@ if __name__ == '__main__':
 }
 ```
 
-### 效果图
+#### 效果图
 
 普通邮件带附件
 ![att](images/att.jpg)
