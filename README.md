@@ -12,7 +12,7 @@ Table of Contents
             * [效果图](#效果图)
       * [SMS(阿里大鱼)](#sms阿里大鱼)
          * [API接口](#api接口-1)
-         * [POST示例](#post示例-1)
+            * [POST示例](#post示例-1)
             * [返回结果](#返回结果-1)
             * [效果图](#效果图-1)
       * [FAQ](#faq)
@@ -197,7 +197,7 @@ HTML格式邮件带附件
 - 请求方式：POST
 - 工具： POSTMAN
 
-### POST示例
+#### POST示例
 ```
 #Body信息
 {
