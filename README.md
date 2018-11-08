@@ -179,6 +179,47 @@ HTML格式邮件带附件
 
 
 
+## SMS(阿里大鱼)
+
+> 注意事项： `const.py`修改对应的配置信息，如：ACCESS_KEY_ID, ACCESS_KEY_SECRET
+修改`const.py`阿里大鱼的：签名、模板、电话等信息。
+
+### API接口
+- 支持阿里云短信服务(阿里大鱼)
+- http://172.16.0.101:9001/sendsms
+- 请求方式：POST
+- 工具： POSTMAN
+
+### 请求示例
+```
+#Body信息
+{
+	"msg": "这是postman短信测试",   #这里msg的值是要传入到阿里大鱼模板配置有个${msg}变量
+	"phone": "10000000000,10000000001,10000000002" #电话号码多个用半角逗号隔离，不要有空格
+}
+
+```
+- 返回结果
+```json
+{
+    "status": 0,
+    "data": {
+        "Message": "OK",
+        "RequestId": "888739E3-B956-487E-A436-269396C5DDA7",
+        "BizId": "790108141664813566^0",
+        "Code": "OK"
+    },
+    "msg": "短信发送成功"
+}
+
+```
+
+- 效果图
+
+![sms](images/sms.png)
+
+![phone_sms](images/phone_sms.png)
+
 
 ## FAQ
 > 由于常见的Email有很多，这里列举下最常见的Email设置
@@ -216,4 +257,5 @@ HTML格式邮件带附件
     - SSL加密：True, 开启
     - 用   户: <your_name>@gmail.com
     - 密   码： 授权码（一般为16位）
+
 

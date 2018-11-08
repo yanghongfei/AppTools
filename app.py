@@ -14,7 +14,7 @@ import tornado.ioloop
 from tornado.options import define, options
 from settings import settings as app_settings
 from controller.app_mail import SendMailHandler
-
+from controller.app_sms import SendSMSHandler
 
 define("port", default=9001, help='run on the given port', type=int)
 
@@ -22,7 +22,8 @@ define("port", default=9001, help='run on the given port', type=int)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r'/sendmail', SendMailHandler)
+            (r'/sendmail', SendMailHandler),
+            (r'/sendsms', SendSMSHandler),
         ]
 
         super(Application, self).__init__(handlers, **app_settings)
