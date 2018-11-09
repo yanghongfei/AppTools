@@ -15,7 +15,7 @@ from utils.send_sms import SmsApi
 class SendSMSHandler(tornado.web.RequestHandler):
 
     def get(self, *args, **kwargs):
-        return self.write('Hello, SendSMS')
+        return self.write('Hello, SendSMS, Please use POST SendSMS!')
 
     def post(self, *args, **kwargs):
         data = json.loads(self.request.body.decode('utf-8'))

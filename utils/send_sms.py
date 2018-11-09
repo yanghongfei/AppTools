@@ -52,15 +52,16 @@ class SmsApi:
 
 
 if __name__ == '__main__':
-    obj = SmsApi(const.ACCESS_KEY_ID, const.ACCESS_KEY_SECRET)
-
-    data = "这是短信测试"
-    params = {
-        "msg": data
-    }
-
-    data = obj.send_sms(phone_numbers=const.phone_numbers, sign_name=const.sign_name, template_code=const.template_code,
-                        template_param=params)
-
-    resp = json.loads(data.decode('utf-8'))
-    print(resp)
+    pass
+    # obj = SmsApi(const.ACCESS_KEY_ID, const.ACCESS_KEY_SECRET)
+    #
+    # data = "这是短信测试"
+    # params = {
+    #     "msg": data
+    # }
+    #
+    # data = obj.send_sms(phone_numbers='10000000000', sign_name=const.sign_name, template_code=const.template_code,
+    #                     template_param=params)
+    #
+    # resp = json.loads(data.decode('utf-8'))
+    # print(resp)

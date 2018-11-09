@@ -19,7 +19,7 @@ from utils.send_mail import MailAPI as SendMailAPI
 
 class SendMailHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        return self.write('Hello, SendMail')
+        return self.write('Hello, SendMail, Please use POST SendMail!')
 
     def post(self, *args, **kwargs):
         data = json.loads(self.request.body.decode('utf-8'))
@@ -31,7 +31,7 @@ class SendMailHandler(tornado.web.RequestHandler):
 
         if not to_list and not subject and not content:
             resp = {
-                'status': 0,
+                'status': -1,
                 'msg': '收件人、邮件标题、邮件内容不能为空'
             }
             return self.write(resp)
@@ -50,7 +50,7 @@ class SendMailHandler(tornado.web.RequestHandler):
                 obj = SendMailAPI(mail_host=mail_host, mail_port=mail_port, mail_user=mail_user, mail_passwd=mail_passwd,
                                   mail_ssl=mail_ssl)
 
-                send_mail = obj.send_mail(to_list, subject, content, subtype=subtype, att=att)
+                obj.send_mail(to_list, subject, content, subtype=subtype, att=att)
                 resp = {
                     'status': 0,
                     'data': data,
