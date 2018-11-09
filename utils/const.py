@@ -10,8 +10,15 @@ import requests
 
 api = 'http://172.16.0.101:9000/app_settings'
 resp = requests.get(api)
-# 获取配信信息
+# 获取配信信息, 前端传过来
 data = json.loads(resp.text)['data']
+
+# Mail配置信息
+EMAIL_HOST = data['EMAIL_HOST']
+EMAIL_PORT = data['EMAIL_PORT']
+EMAIL_HOST_USER = data['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = data['EMAIL_HOST_PASSWORD']
+EMAIL_USE_SSL = data['EMAIL_USE_SSL']
 
 # AliYun SMS信息注意：不要更改
 REGION = "cn-hangzhou"
@@ -27,6 +34,5 @@ sign_name = data['SMS_SIGN_NAME']  # 签名
 template_code = data['SMS_TEMPLATE_CODE']  # 模板ID
 
 # 电话列表，多个使用半角逗号隔开
-# sms_phone_list = data['SMS_PHONE_LIST']
-# phone_list = [sms_phone_list]
+# phone_list = ["10000000000,10000000001,10000000002"]
 # phone_numbers = ','.join(phone_list)

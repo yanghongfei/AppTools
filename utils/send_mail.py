@@ -79,10 +79,5 @@ class MailAPI():
             return False
 
 
-def get_email_info():
-    api = 'http://172.16.0.101:9000/app_settings'
-    resp = requests.get(api)
-    if resp:
-        data = json.loads(resp.text)['data']
-        return data
-
+if __name__ == '__main__':
+    pass

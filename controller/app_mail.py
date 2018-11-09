@@ -13,7 +13,7 @@ import tornado.web
 Base_DIR = os.path.dirname(os.path.dirname(os.path.abspath('__file__')))
 sys.path.append(Base_DIR)
 
-from utils.send_mail import get_email_info
+from utils import const
 from utils.send_mail import MailAPI as SendMailAPI
 
 
@@ -36,31 +36,18 @@ class SendMailHandler(tornado.web.RequestHandler):
             }
             return self.write(resp)
 
+        try:
+            obj = SendMailAPI(mail_host=const.EMAIL_HOST, mail_port=const.EMAIL_PORT, mail_user=const.EMAIL_HOST_USER,
+                              mail_passwd=const.EMAIL_HOST_PASSWORD,
+                              mail_ssl=const.EMAIL_USE_SSL)
 
-        EMAIL_INFO = get_email_info()
-        if EMAIL_INFO:
-            '''获取AppSettings里面登陆信息，实例化SendMailAPI'''
-            mail_host = EMAIL_INFO['EMAIL_HOST']
-            mail_port = EMAIL_INFO['EMAIL_PORT']
-            mail_user = EMAIL_INFO['EMAIL_HOST_USER']
-            mail_passwd = EMAIL_INFO['EMAIL_HOST_PASSWORD']
-            mail_ssl = EMAIL_INFO['EMAIL_USE_SSL']
+            obj.send_mail(to_list, subject, content, subtype=subtype, att=att)
+            resp = {
+                'status': 0,
+                'data': data,
+                'msg': '发送成功'
+            }
+            return self.write(resp)
 
-            try:
-                obj = SendMailAPI(mail_host=mail_host, mail_port=mail_port, mail_user=mail_user, mail_passwd=mail_passwd,
-                                  mail_ssl=mail_ssl)
-
-                obj.send_mail(to_list, subject, content, subtype=subtype, att=att)
-                resp = {
-                    'status': 0,
-                    'data': data,
-                    'msg': '发送成功'
-                }
-                return self.write(resp)
-
-            except Exception as e:
-                print(e)
-
-        else:
-            print('获取AppSetting邮箱配置信息失败')
-
+        except Exception as e:
+            print(e)
