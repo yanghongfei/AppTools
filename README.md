@@ -20,6 +20,7 @@ Table of Contents
             * [POST示例](#post示例-2)
                * [普通文本格式](#普通文本格式)
                * [Link超链接格式](#link超链接格式)
+         * [效果图](#效果图-2)
       * [FAQ](#faq)
 
 
@@ -324,7 +325,8 @@ HTML格式邮件带附件
 
 ```
 
-
+### 效果图
+![DingTalk](images/dingtalk.png)
 
 
 
@@ -345,6 +347,8 @@ HTML格式邮件带附件
     - SSL加密：True, 开启
     - 用   户: <your_qq>@qq.com
     - 密   码： 授权码（一般为16位）
+  
+
 
 - Q: 腾讯企业邮箱如何设置？
 - A: 腾讯企业邮箱同QQ邮箱，唯一一点SMTP服务器不同
@@ -354,6 +358,8 @@ HTML格式邮件带附件
     - 用   户: <your_name>@domain.com
     - 密   码： 授权码（一般为16位）
 
+
+
 - Q: 网易163邮箱如何设置？
 - A: 同上，唯一一点SMTP服务器不同
     - [SMTP地址](http://help.163.com/09/1223/14/5R7P3QI100753VB8.html)：smtp.163.com
@@ -361,6 +367,8 @@ HTML格式邮件带附件
     - SSL加密：True, 开启
     - 用   户: <your_name>@163.com
     - 密   码： 授权码（一般为16位）
+
+
 
 - Q: Gmail邮箱如何设置？
 - A: Gmail邮箱考虑到安全，需要注意以下2步
