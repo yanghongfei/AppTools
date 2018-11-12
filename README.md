@@ -15,8 +15,12 @@ Table of Contents
             * [POST示例](#post示例-1)
             * [返回结果](#返回结果-1)
             * [效果图](#效果图-1)
+      * [钉钉DingTalk](#钉钉dingtalk)
+         * [API接口](#api接口-2)
+            * [POST示例](#post示例-2)
+               * [普通文本格式](#普通文本格式)
+               * [Link超链接格式](#link超链接格式)
       * [FAQ](#faq)
-
 
 
 # AppTools
@@ -228,6 +232,109 @@ HTML格式邮件带附件
 ![phone_sms](images/phone_sms.png)
 
 
+
+## 钉钉DingTalk
+> 企业DingTalk机器人消息通知, 请先获取WebHook, 然后修改对应`const.py`WebHook地址
+
+- 资料：
+    - [DingTalk机器人申请地址](https://open-doc.dingtalk.com/docs/doc.htm?spm=0.0.0.0.0Sds7z&treeId=257&articleId=105733&docType=1)
+    - [参考官方使用示例](https://open-doc.dingtalk.com/docs/doc.htm?spm=0.0.0.0.0Sds7z&treeId=257&articleId=105733&docType=1)
+
+
+### API接口
+- http://172.16.0.101:9001/send_dingtalk
+- 请求方式：POST
+- 工具： POSTMAN
+
+#### POST示例
+
+##### 普通文本格式
+- Body信息
+```
+{
+	"msgtype": "text",
+	"content": "这是内容",
+	"title": "这是标题",
+	"phone": "10000000000,10000000001,10000000002", #电话号码多个用半角逗号隔离，不要有空格
+	"is_at_all": "False"
+}
+```
+
+- 参数介绍
+- msgtype: text, 普通文本格式
+- content: 文本内容
+- tilte: 标题
+- phone: 被@人的电话号码，比如机器人是在一个群里，这个号码必须是群里某一个人员的电话，没有则None
+- is_at_all: True则@全员，False不进行@全员
+
+- 返回结果
+```json
+{
+    "status": 0,
+    "data": {
+        "msgtype": "text",
+        "content": "这是内容",
+        "title": "这是标题",
+        "phone": "10000000000,10000000001,10000000002",
+        "is_at_all": "True"
+    },
+    "datetime": "2018-11-12 17:42:59",
+    "msg": "OK"
+}
+```
+
+##### Link超链接格式
+
+- Body信息
+```
+{
+	"msgtype": "link",
+	"content": "这是内容",
+	"title": "这是标题",
+	"phone": "None",
+	"url": "https://www.google.com",
+	"is_at_all": "True"
+}
+```
+- 参数介绍
+- msgtype: link, 超链接格式
+- content: 文本内容
+- tilte: 标题
+- url : 超链接URL地址
+- phone: 被@人的电话号码，比如机器人是在一个群里，这个号码必须是群里某一个人员的电话，没有则None
+- is_at_all: True则@全员，False不进行@全员
+
+
+- 返回结果
+```json
+
+{
+    "status": 0,
+    "data": {
+        "msgtype": "link",
+        "content": "这是内容",
+        "title": "这是标题",
+        "phone": "None",
+        "url": "https://www.google.com",
+        "is_at_all": "True"
+    },
+    "datetime": "2018-11-12 17:56:00",
+    "msg": "OK"
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ## FAQ
 > 由于常见的Email有很多，这里列举下最常见的Email设置
 
@@ -264,5 +371,7 @@ HTML格式邮件带附件
     - SSL加密：True, 开启
     - 用   户: <your_name>@gmail.com
     - 密   码： 授权码（一般为16位）
+
+
 
 

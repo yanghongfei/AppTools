@@ -33,6 +33,7 @@ ACCESS_KEY_SECRET = data['SMS_ACCESS_KEY_SECRET']
 sign_name = data['SMS_SIGN_NAME']  # 签名
 template_code = data['SMS_TEMPLATE_CODE']  # 模板ID
 
-# 电话列表，多个使用半角逗号隔开
-# phone_list = ["10000000000,10000000001,10000000002"]
-# phone_numbers = ','.join(phone_list)
+
+
+#钉钉配置信息
+WebHook = data['WEBHOOK']
