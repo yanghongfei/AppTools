@@ -34,6 +34,9 @@ sign_name = data['SMS_SIGN_NAME']  # 签名
 template_code = data['SMS_TEMPLATE_CODE']  # 模板ID
 
 
-
 #钉钉配置信息
 WebHook = data['WEBHOOK']
+
+#微信配置信息
+api_url = 'https://pushbear.ftqq.com/sub'
+send_key = data['WECHAT_KEY']

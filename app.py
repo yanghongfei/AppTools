@@ -16,6 +16,7 @@ from settings import settings as app_settings
 from controller.app_mail import SendMailHandler
 from controller.app_sms import SendSMSHandler
 from controller.app_dingtalk import DingTalkHandler
+from controller.app_wechat import WechatHandler
 
 define("port", default=9001, help='run on the given port', type=int)
 
@@ -26,6 +27,7 @@ class Application(tornado.web.Application):
             (r'/sendmail', SendMailHandler),
             (r'/sendsms', SendSMSHandler),
             (r'/send_dingtalk', DingTalkHandler),
+            (r'/send_wechat', WechatHandler),
         ]
 
         super(Application, self).__init__(handlers, **app_settings)
