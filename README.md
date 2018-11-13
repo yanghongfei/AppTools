@@ -5,6 +5,7 @@ Table of Contents
    * [Table of Contents](#table-of-contents)
    * [AppTools](#apptools)
       * [使用须知](#使用须知)
+      * [部署使用](#部署使用)
       * [Email](#email)
          * [API接口](#api接口)
             * [POST示例](#post示例)
@@ -38,6 +39,12 @@ Table of Contents
 - 使用人员请先修改`settings.py` 和`const`常量基本配置信息
 - 此环境配置信息统一调用接口`http://172.16.0.101:9000/app_settings`
 
+## 部署使用
+```
+$ git clone git@github.com:yanghongfei/AppTools.git
+#记得修改`settings.py` 和`const`常量基本配置信息
+$ python3 app.py
+```
 
 ## Email
 
