@@ -1,5 +1,2 @@
-tornado
-requests
-fire
 aliyun-python-sdk-core
 aliyun-python-sdk-dysmsapi
