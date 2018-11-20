@@ -62,11 +62,13 @@ class DingTalkApi():
                     "isAtAll": is_at_all
                 }
             }
-
-        r = requests.post(self.webhook, headers=self.headers, data=json.dumps(msg_data))
-        resp = json.loads(r.text)
-        return resp
-
+        try:
+            r = requests.post(self.webhook, headers=self.headers, data=json.dumps(msg_data))
+            resp = json.loads(r.text)
+            return resp
+        except Exception as e:
+            print(e)
+            return False
 
 if __name__ == '__main__':
     pass

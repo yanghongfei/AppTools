@@ -29,6 +29,7 @@ class SendMailHandler(tornado.web.RequestHandler):
         subtype = data.get('subtype', None)
         att = data.get('att', None)
 
+
         if not to_list and not subject and not content:
             resp = {
                 'status': -1,
