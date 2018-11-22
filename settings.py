@@ -8,6 +8,14 @@
 
 import os.path
 
+DB_INFO = {
+    'host': '172.16.0.101',
+    'user': 'root',
+    'port': 3306,
+    'password': 'shinezone2015',
+    'db': 'OpenDevOps'
+}
+
 settings = dict(
     template_path=os.path.join(os.path.dirname(__file__), "templates"),
     static_path=os.path.join(os.path.dirname(__file__), "static"),
