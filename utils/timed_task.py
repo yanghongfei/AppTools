@@ -106,8 +106,8 @@ def check_reminder_event():
 
 def exec_task():
     sched = BlockingScheduler()
-    sched.add_job(check_reminder_event, 'interval', seconds=30)  # 每30s
-    # sched.add_job(check_reminder_event, 'interval', hours=1)  # 每小时
+    #sched.add_job(check_reminder_event, 'interval', seconds=30)  # 每30s
+    sched.add_job(check_reminder_event, 'interval', hours=1)  # 每小时
     sched.start()
 
 
