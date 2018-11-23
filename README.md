@@ -62,6 +62,14 @@ $ git clone https://github.com/yanghongfei/AppTools.git
 $ 安装依赖 pip3 install -r requirements.txt
 $ python3 app.py
 ```
+**Docker方式**
+- 请修改对应settings里面的内容
+- 首先要具有docker环境，docker推荐使用`docker-ce`
+- 进入到项目目录，制作镜像启动
+```bash
+docker build -t apptools .
+docker-compose up -d
+```
 
 ## Email
 
