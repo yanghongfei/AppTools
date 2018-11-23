@@ -19,6 +19,7 @@ from controller.app_dingtalk import DingTalkHandler
 from controller.app_wechat import WechatHandler
 from controller.itsm_fault import FaultHandler
 from controller.itsm_upload_file import UpFileHandler
+from controller.itsm_event_reminder import EventHandler
 
 define("port", default=9001, help='run on the given port', type=int)
 
@@ -32,6 +33,7 @@ class Application(tornado.web.Application):
             (r'/send_wechat', WechatHandler),
             (r'/fault', FaultHandler),
             (r'/upload_file', UpFileHandler),
+            (r'/event_reminder', EventHandler)
         ]
 
         super(Application, self).__init__(handlers, **app_settings)

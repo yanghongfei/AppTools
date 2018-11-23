@@ -14,7 +14,7 @@ from sqlalchemy.dialects.mysql import LONGTEXT
 from database import init_db
 
 
-class itsm_fault_info(Base):
+class Fault(Base):
     __tablename__ = 'itsm_fault_info'
     id = Column(Integer, primary_key=True, autoincrement=True)  # ID 自增长
     fault_name = Column(String(100), nullable=False)  # 故障名称
@@ -31,5 +31,16 @@ class itsm_fault_info(Base):
     create_at = Column(DateTime, nullable=False, default=datetime.now())  # 记录创建时间
     update_at = Column(TIMESTAMP, nullable=False, default=datetime.now())  # 记录更新时间
 
+
+class EventReminder(Base):
+    __tablename__ = 'itsm_event_reminder'
+    id = Column(Integer, primary_key=True, autoincrement=True)  # ID 自增长
+    name = Column(String(100), nullable=True)  # 事件名称
+    content = Column(String(100), nullable=True)  # 事件的描述
+    email = Column(String(100), nullable=True)  # 通知人员email
+    advance_at = Column(Integer, nullable=True)  # 提前多少天提醒
+    expire_at = Column(DateTime, nullable=True)  # 事件过期时间
+    create_at = Column(DateTime, nullable=False, default=datetime.now())  # 记录创建时间
+    update_at = Column(TIMESTAMP, nullable=False, default=datetime.now())  # 记录更新时间
 
 #init_db()  #第一次初始化使用

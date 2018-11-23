@@ -3,3 +3,6 @@ requests
 fire
 aliyun-python-sdk-core-v3
 aliyun-python-sdk-dysmsapi
+apscheduler
+SQLAlchemy
+mysql-connector

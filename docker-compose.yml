@@ -1,0 +1,5 @@
+EventReminder:
+  restart: unless-stopped
+  image: apptools:latest
+  ports:
+    - "9001:9001"

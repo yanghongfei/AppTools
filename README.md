@@ -35,8 +35,16 @@ Table of Contents
             * [PUT示例](#put示例)
             * [DELETE示例](#delete示例)
             * [返回结果](#返回结果-2)
+      * [事件提醒](#事件提醒)
+         * [表结构](#表结构-1)
+         * [API接口](#api接口-5)
+            * [GET示例](#get示例-1)
+            * [POST示例](#post示例-5)
+            * [PUT示例](#put示例-1)
+            * [DELETE示例](#delete示例-1)
+            * [返回结果](#返回结果-3)
       * [FAQ](#faq)
-      * [更新日志](#更新日志)
+      * [更新日志](#更新日志)      * [更新日志](#更新日志)
 
 
 # AppTools
@@ -406,6 +414,89 @@ HTML格式邮件带附件
 ```
 
 
+## 事件提醒
+> 事件提醒Tornado后端代码逻辑，配合前端可以，手动添加需要提醒的事件，可以帮助你进行Email提前提醒
+> 其余人员使用注意：`settings.py`和`utils/const.py`信息
+
+### 表结构
+```mysql
++------------+--------------+------+-----+-------------------+-----------------------------+
+| Field      | Type         | Null | Key | Default           | Extra                       |
++------------+--------------+------+-----+-------------------+-----------------------------+
+| id         | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| name       | varchar(100) | YES  |     | NULL              |                             |
+| content    | varchar(100) | YES  |     | NULL              |                             |
+| email      | varchar(100) | YES  |     | NULL              |                             |
+| advance_at | int(11)      | YES  |     | NULL              |                             |
+| expire_at  | datetime     | YES  |     | NULL              |                             |
+| create_at  | datetime     | NO   |     | NULL              |                             |
+| update_at  | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++------------+--------------+------+-----+-------------------+-----------------------------+
+```
+
+**字段介绍**
+- ID: 自增长
+- name: 事件名称
+- content: 事件内容描述
+- Email： 需要通知人员的Email地址
+- advance: 提前多少天进行提醒
+- expire_at: 事件过期/到期时间
+- create_at: 记录事件创建时间
+- update_at: 记录事件更新时间
+
+### API接口
+- http://172.16.0.101:9001/event_reminder
+- 工具：POSTMAN
+- 支持：GET/POST/PUT/DELETE
+
+#### GET示例
+```
+curl -X GET http://172.16.0.101:9001/event_reminder
+```
+
+#### POST示例
+```
+{
+    "name": "Ec2",
+    "content": "服务器到期提醒",
+    "email": "1923671815@qq.com, xxxxx@qq.com",
+    "advance_at": "100",
+    "expire_at": "2018-11-30"
+}
+```
+#### PUT示例
+```
+{
+    "name": "Ec2",   #name可读，其余信息都可以修改
+    "content": "这是修改后的服务器信息提醒",
+    "email": "1923671815@qq.com, group@qq.com",
+    "advance_at": "50",
+    "expire_at": "2018-12-30"
+}
+```
+#### DELETE示例
+```
+删除只需要填写name
+{
+    "name": "域名"
+}
+```
+
+#### 返回结果
+```
+{
+    "status": 0,
+    "data": {
+        "name": "域名",
+        "content": "这是域名将要到期提醒",
+        "email": "1923671815@qq.com, xxxx@qq.com",
+        "advance_at": "10",
+        "expire_at": "2018-11-30"
+    },
+    "datetime": "2018-11-23 13:48:10",
+    "msg": "添加成功"
+}
+```
 
 ## FAQ
 > 由于常见的Email有很多，这里列举下最常见的Email设置
@@ -469,3 +560,9 @@ HTML格式邮件带附件
 
 - 添加故障管理
 - 添加单文件上传(很Low，最简单的)
+
+**2018-11-23**
+
+- 添加事件提醒
+- Docker部署方式
+

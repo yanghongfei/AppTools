@@ -1,0 +1,32 @@
+<html>
+<head>
+    <!--这里的{{title}}表示title这个变量的内容由服务器端产生并填写到该位置-->
+    <title>{{title}}</title>
+<body>
+<center><h1>Welcome to EventReminder</h1></center>
+<center>
+    <hr/>
+    <table border=1>
+        <tr style='font-weight:bold' align='center'>
+            <td width='200'>事件名称</td>
+            <td width='100'>事件内容</td>
+            <td width='100'>提醒人员</td>
+            <td width='200'>提前时间(Day)</td>
+            <td width='200'>过期时间</td>
+
+        </tr>
+        <!--users是一个由服务器端通过查询数据库而产生的列表，这里用for语句可以把用户信息全部输出-->
+        {% for event in event_info %}
+        <tr align='center'>
+            <td>{{ event.name }}</td>
+            <td>{{ event.content }}</td>
+            <td>{{ event.email }}</td>
+            <td>{{ event.advance_at }}</td>
+            <td>{{ event.expire_at }}</td>
+        </tr>
+        <!--for循环结束-->
+        {% end %}
+    </table>
+</center>
+</body>
+</html>

@@ -10,7 +10,7 @@ import json
 import tornado.web
 from utils.const import now_time
 from database import db_session
-from models import itsm_fault_info
+from models import Fault as itsm_fault_info
 
 
 class FaultHandler(tornado.web.RequestHandler):
@@ -20,8 +20,8 @@ class FaultHandler(tornado.web.RequestHandler):
         title = 'Fault Info V0.1'
         try:
             fault_info = db_session.query(itsm_fault_info).all()
-            for data in fault_info:
-                print(data.fault_name)
+            # for data in fault_info:
+            #     print(data.fault_name)
             self.render('fault_info.html', title=title, fault_info=fault_info)
         except Exception as e:
             print(e)
