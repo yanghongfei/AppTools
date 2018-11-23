@@ -20,8 +20,10 @@ RUN mkdir -p /opt/AppTools/
 ADD . /opt/AppTools/
 
 # 5. 安装pip依赖
-RUN pip3 install --upgrade pip
-RUN pip3 install -r /opt/AppTools/requirements.txt
+WORKDIR /opt/AppTools/
+RUN pip3 install -U pip && \
+RUN pip3 install --upgrade pip && \
+RUN pip3 install -r requirements.txt
 
 # 6. 日志
 # VOLUME /var/log/

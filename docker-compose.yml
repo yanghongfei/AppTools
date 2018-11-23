@@ -1,4 +1,4 @@
-EventReminder:
+apptools:
   restart: unless-stopped
   image: apptools:latest
   ports:

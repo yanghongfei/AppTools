@@ -14,7 +14,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from utils.send_mail import MailAPI
 
 
-
 def check_reminder_event():
     """
     用途：
