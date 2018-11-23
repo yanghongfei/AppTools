@@ -6,6 +6,12 @@
 # @Role    : 定时任务
 
 
+import os
+import sys
+
+Base_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(Base_DIR)
+
 import datetime
 from database import db_session
 from models import EventReminder
