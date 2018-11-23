@@ -7,9 +7,11 @@
 
 
 import json
+import time
 import requests
 from functools import lru_cache
 
+now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
 # import tornado.httpclient
 # http_client = tornado.httpclient.HTTPClient()

@@ -9,12 +9,11 @@ Table of Contents
       * [Email](#email)
          * [API接口](#api接口)
             * [POST示例](#post示例)
-            * [返回结果](#返回结果)
             * [效果图](#效果图)
       * [SMS(阿里大鱼)](#sms阿里大鱼)
          * [API接口](#api接口-1)
             * [POST示例](#post示例-1)
-            * [返回结果](#返回结果-1)
+            * [返回结果](#返回结果)
             * [效果图](#效果图-1)
       * [钉钉DingTalk](#钉钉dingtalk)
          * [API接口](#api接口-2)
@@ -26,14 +25,22 @@ Table of Contents
          * [环境说明](#环境说明)
          * [API接口](#api接口-3)
             * [POST示例](#post示例-3)
-            * [返回结果](#返回结果-2)
+            * [返回结果](#返回结果-1)
             * [效果图](#效果图-3)
+      * [故障管理](#故障管理)
+         * [表结构](#表结构)
+         * [API接口](#api接口-4)
+            * [GET示例](#get示例)
+            * [POST示例](#post示例-4)
+            * [PUT示例](#put示例)
+            * [DELETE示例](#delete示例)
+            * [返回结果](#返回结果-2)
       * [FAQ](#faq)
-
+      * [更新日志](#更新日志)
 
 
 # AppTools
-> 提醒工具API（如：邮箱、阿里大鱼、钉钉、微信），可通过POST请求调用，示例请参考`test.py`脚本
+> 工具API（如：邮箱、阿里大鱼、钉钉、微信），可通过POST请求调用，只有后端逻辑，没有Web界面
 
 ## 使用须知
 - 使用人员请先修改`settings.py` 和`const`常量基本配置信息
@@ -64,7 +71,7 @@ $ python3 app.py
 示例脚本 请参考：`test.py`
 ```
 #### 返回结果
-```json
+​```json
 {
 	'status': 0,
 	'data': {
@@ -281,6 +288,124 @@ HTML格式邮件带附件
 
 
 
+## 故障管理
+> 故障管理后端代码，接入DevOps记录故障信息
+
+### 表结构
+```mysql
++-------------------+--------------+------+-----+-------------------+-----------------------------+
+| Field             | Type         | Null | Key | Default           | Extra                       |
++-------------------+--------------+------+-----+-------------------+-----------------------------+
+| id                | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| fault_name        | varchar(100) | NO   |     | NULL              |                             |
+| fault_level       | int(11)      | NO   |     | NULL              |                             |
+| fault_state       | int(11)      | NO   |     | NULL              |                             |
+| fault_penson      | varchar(100) | NO   |     | NULL              |                             |
+| processing_penson | varchar(100) | YES  |     | NULL              |                             |
+| fault_report      | longtext     | YES  |     | NULL              |                             |
+| fault_start_time  | datetime     | NO   |     | NULL              |                             |
+| fault_end_time    | datetime     | NO   |     | NULL              |                             |
+| fault_duration    | varchar(100) | YES  |     | NULL              |                             |
+| fault_issue       | varchar(100) | YES  |     | NULL              |                             |
+| fault_summary     | varchar(100) | YES  |     | NULL              |                             |
+| create_at         | datetime     | NO   |     | NULL              |                             |
+| update_at         | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++-------------------+--------------+------+-----+-------------------+-----------------------------+
+
+```
+- 字段说明
+```mysql
+    id = Column(Integer, primary_key=True, autoincrement=True)  # ID 自增长
+    fault_name = Column(String(100), nullable=False)  # 故障名称
+    fault_level = Column(Integer, nullable=False)  # 故障级别,1,2,3,4为故障等级
+    fault_state = Column(Integer, nullable=False)  # 故障状态，0:关闭 1：进行中
+    fault_penson = Column(String(100), nullable=False)  # 故障责任人
+    processing_penson = Column(String(100), nullable=True)  # 故障处理人员
+    fault_report = Column(LONGTEXT, nullable=True)  # 故障报告 HTTPS链接，附件
+    fault_start_time = Column(DateTime, nullable=False)  # 故障开始时间
+    fault_end_time = Column(DateTime, nullable=False)  # 故障结束时间
+    fault_duration = Column(String(100), nullable=True)  # 故障影响时间，分钟
+    fault_issue = Column(String(100), nullable=True)  # 故障原因
+    fault_summary = Column(String(100), nullable=True)  # 故障总结
+    create_at = Column(DateTime, nullable=False, default=datetime.now())  # 记录创建时间
+    update_at = Column(TIMESTAMP, nullable=False, default=datetime.now())  # 记录更新时间
+```
+
+
+### API接口
+- http://172.16.0.101:9001/fault
+- 支持：GET/POST/PUT/DELETE
+- 测试工具： POSTMAN RAW数据
+####  GET示例
+- http://172.16.0.101:9001/fault #获取所有故障信息
+
+#### POST示例
+```
+#Body信息
+{
+	"fault_name": "test011",
+	"fault_level": "1",
+	"fault_state": "1",
+	"fault_penson": "杨红飞",
+	"processing_penson": "杨红飞、OPS组",
+	"fault_report": "https://opendevops.cn/fault_report/test0011.html",
+	"fault_start_time": "2018-11-22",
+	"fault_end_time": "2018-11-23",
+	"fault_issue": "AWS底层重test启",
+	"fault_summary": "故障总结"
+}
+```
+
+#### PUT示例
+
+```
+{
+	"fault_name": "test011", #除了name，其余都可以修改更新
+	"fault_level": "1",
+	"fault_state": "1",
+	"fault_penson": "杨红飞",
+	"processing_penson": "杨红飞test、OPS组",
+	"fault_report": "https://opendevops.cn/fault_report/test0011.html",
+	"fault_start_time": "2018-11-22",
+	"fault_end_time": "2018-11-23",
+	"fault_issue": "AWS底层重test启",
+	"fault_summary": "故障总结test"
+}
+```
+
+
+
+#### DELETE示例
+
+```
+{
+	"fault_name": "test011", #删除name
+}
+
+```
+#### 返回结果
+
+```json
+{
+    "status": 0,
+    "data": {
+        "fault_name": "test0112",
+        "fault_level": "1",
+        "fault_state": "1",
+        "fault_penson": "杨红飞",
+        "processing_penson": "杨红飞、OPS",
+        "fault_report": "https://opendevops.cn/fault_report/test0011.html",
+        "fault_start_time": "2018-11-22",
+        "fault_end_time": "2018-11-23",
+        "fault_issue": "AWS底层重test启",
+        "fault_summary": "故障总结"
+    },
+    "datetime": "2018-11-22 18:22:25",
+    "msg": "Name: test0112 添加成功"
+}
+```
+
+
 
 ## FAQ
 > 由于常见的Email有很多，这里列举下最常见的Email设置
@@ -327,4 +452,20 @@ HTML格式邮件带附件
 
 
 
+## 更新日志
 
+**2018-11-07**
+
+- 创建Apptool工具库
+- 添加Email提醒  
+
+**2018-11-10**
+
+- 添加SMS 阿里大鱼提醒
+- 添加钉钉提醒
+- 添加微信提醒
+
+**2018-11-22**
+
+- 添加故障管理
+- 添加单文件上传(很Low，最简单的)

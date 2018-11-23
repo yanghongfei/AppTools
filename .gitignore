@@ -1,3 +1,5 @@
 __pycache__
 controller/__pycache__
 utils/__pycache__
+static/__pycache__
+static/files/__pycache__

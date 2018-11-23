@@ -1,0 +1,56 @@
+<html>
+<head>
+    <script src="jquery.js"></script>
+    <!--这里的{{title}}表示title这个变量的内容由服务器端产生并填写到该位置-->
+    <title>{{title}}</title>
+<body>
+<center><h1>Welcome to FaultInfo</h1></center>
+<!--<form action="fault" method="post" enctype="multipart/form-data">-->
+  <!--<p>fault_name: <input type="text" name="fault_name" /></p>-->
+  <!--<p>fault_level: <input type="text" name="fault_level" /></p>-->
+  <!--<p>fault_state: <input type="text" name="fault_state" /></p>-->
+  <!--<p>fault_penson: <input type="text" name="fault_penson" /></p>-->
+  <!--<p>processing_penson: <input type="text" name="processing_penson" /></p>-->
+  <!--<p>fault_report: <input type="text" name="fault_report" /></p>-->
+  <!--<p>fault_start_time: <input type="text" name="fault_start_time" /></p>-->
+  <!--<p>fault_end_time: <input type="text" name="fault_end_time" /></p>-->
+  <!--<input type="submit" value="Submit" />-->
+<!--</form>-->
+<center>
+    <hr/>
+    <table border=1>
+        <tr style='font-weight:bold' align='center'>
+            <td width='200'>故障名称</td>
+            <td width='100'>故障级别</td>
+            <td width='100'>故障状态</td>
+            <td width='200'>故障责任人</td>
+            <td width='200'>故障处理人员</td>
+            <td width='100'>故障报告</td>
+            <td width='100'>故障开始时间</td>
+            <td width='120'>故障结束时间</td>
+            <td width='120'>故障影响时长</td>
+            <td width='100'>故障原因</td>
+            <td width='100'>故障总结</td>
+
+        </tr>
+        <!--users是一个由服务器端通过查询数据库而产生的列表，这里用for语句可以把用户信息全部输出-->
+        {% for fault in fault_info %}
+        <tr align='center'>
+            <td>{{ fault.fault_name }}</td>
+            <td>{{ fault.fault_level }}</td>
+            <td>{{ fault.fault_state }}</td>
+            <td>{{ fault.fault_penson }}</td>
+            <td>{{ fault.processing_penson }}</td>
+            <td>{{ fault.fault_report }}</td>
+            <td>{{ fault.fault_start_time }}</td>
+            <td>{{ fault.fault_end_time }}</td>
+            <td>{{ fault.fault_end_time - fault.fault_start_time }}</td>
+            <td>{{ fault.fault_issue }}</td>
+            <td>{{ fault.fault_summary }}</td>
+        </tr>
+        <!--for循环结束-->
+        {% end %}
+    </table>
+</center>
+</body>
+</html>
