@@ -20,6 +20,8 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from utils.send_mail import MailAPI
 
 
+
+
 def check_reminder_event():
     """
     用途：
@@ -39,10 +41,11 @@ def check_reminder_event():
         start_reminder_time = event.expire_at - datetime.timedelta(days=int(event.advance_at))
         if start_reminder_time <= now_time:
             content = """
-                    <!DOCTYPE html><html>
-                    <head lang="en">
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
                     <meta charset="UTF-8">
-                    <title></title>
+                    <title>OpenDevOps邮件提醒</title>
                     <style type="text/css">
                         p {
                             width: 100%;
@@ -52,6 +55,7 @@ def check_reminder_event():
                             text-align: center;
 
                         }
+
                         table {
                             width: 100%;
                             text-align: center;
@@ -59,49 +63,78 @@ def check_reminder_event():
                         }
 
                         tr.desc {
-                            background-color: gray;
+                            background-color: #E8E8E8;
                             height: 30px;
                         }
+
                         tr.desc td {
-                            border-color: #ffffff;
+                            border-color: black;
                         }
+
                         td {
                             height: 30px;
-                            border: 1px solid gray;
                         }
                     </style>
-                    </head>
-                    <body>"""
+                    <style>
+                        .bodydiv {
+                            width: 60%;
+                            margin: 0 auto;
+                        }
+
+                        .tc {
+                            text-align: center;
+                        }
+
+                        .content {
+                            margin: 10px 0 10px 30px;
+                        }
+                    </style>
+                </head>
+                """
+            content += """
+                <div class="bodydiv">
+                <div class="tc">
+                    <img src="http://www.opendevops.cn/images/logo.png" height="150" width="150"/>
+                </div>
+                    尊敬的OpenDevOps用户：
+                    <div class="content">
+                        你有以下事项提醒需要关注
+                    </div>
+
+                <table>
+                    <tr class="desc">
+                        <td>事件名称</td>
+                        <td>事件内容</td>
+                        <td>过期时间</td>
+                    </tr>
+                """
 
             content += """
-                    <table>
-                    <p>OpenDevOps事件提醒 </p>
-                    <tr class='desc'>
-                    <td>事件名称</td>
-                    <td>事件内容</td>
-                    <td>过期时间</td>
-
-                    </tr>"""
+                        <tr>
+                        <td>{}</td>
+                        <td>{}</td>
+                        <td>{}</td>
+                         </tr>""".format(event.name, event.content, event.expire_at)
 
             content += """
-                    <tr>
-                    <td>{}</td>
-                    <td>{}</td>
-                    <td>{}</td>
-                     </tr>""".format(event.name, event.content, event.expire_at)
-            content += """
-                     </table>
-                     </body>
-                     </html>"""
-            try:
-                obj = MailAPI(mail_host=const.EMAIL_HOST, mail_port=const.EMAIL_PORT,
-                              mail_user=const.EMAIL_HOST_USER,
-                              mail_passwd=const.EMAIL_HOST_PASSWORD,
-                              mail_ssl=const.EMAIL_USE_SSL)
+                    </table>
+                    </div>
+                    </body>
+                    </html>
+            
+            """
 
-                obj.send_mail(event.email, 'OpenDevOps', content, subtype='html', att='None')
-            except Exception as e:
-                print(e)
+
+
+    try:
+        obj = MailAPI(mail_host=const.EMAIL_HOST, mail_port=const.EMAIL_PORT,
+                      mail_user=const.EMAIL_HOST_USER,
+                      mail_passwd=const.EMAIL_HOST_PASSWORD,
+                      mail_ssl=const.EMAIL_USE_SSL)
+
+        obj.send_mail(event.email, 'OpenDevOps', content, subtype='html', att='None')
+    except Exception as e:
+        print(e)
 
 
 def exec_task():
